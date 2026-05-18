@@ -94,3 +94,12 @@ jobs:
           echo "Repo: $GITHUB_REPOSITORY"
           echo "Evento: $GITHUB_EVENT_NAME"
           echo "Runner: $RUNNER_OS"
+
+  deploy:
+    needs: docs
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to production
+        run: echo "Deploying ${{ needs.test.outputs.build_tag }} to production..."
